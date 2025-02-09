@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Heart for You 💖</title>
+    <style>
+        body {
+            text-align: center;
+            background-color: #fce6e6;
+            font-family: 'Arial', sans-serif;
+            display:flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+        }
+
+        h1 {
+            color: #d63384;
+            font-size: 3em;
+            margin-top: 20px;
+        }
+
+        .heart {
+            font-size: 100px;
+            color: red;
+            cursor: pointer;
+            transition: transform 0.5s ease, box-shadow 0.3s ease, text-shadow 0.3s ease;
+            text-shadow: 0 0 20px rgba(255, 0, 0, 0.7), 0 0 30px rgba(255, 0, 0, 0.7);
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.5), 0 0 40px rgba(255, 0, 0, 0.7);
+        }
+
+        .heart:hover {
+            transform: scale(1.2);
+            text-shadow: 0 0 30px rgba(255, 0, 0, 1), 0 0 40px rgba(255, 0, 0, 1);
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.8), 0 0 60px rgba(255, 0, 0, 0.9);
+        }
+
+        .message {
+            font-size: 1.5em;
+            margin-top: 30px;
+            color: #ff6699;
+            display: none;
+        }
+
+        .button {
+            background-color: #ff6699;
+            color: white;
+            padding: 15px 30px;
+            font-size: 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+
+        .button:hover {
+            background-color: #d63384;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        body.revealed {
+            background-color: pink; /* Set full background to pink */
+            transition: background-color 0.5s ease; /* Smooth transition */
+        }
+
+        .gift-message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.5em;
+            color: rgb(90, 6, 6);
+            text-align: center;
+            display: none; /* Initially hidden */
+            z-index: 1;
+            font-weight: bold;
+        }
+
+        .gift-box {
+            position: relative; /* To contain the gift message */
+            width: 150px;
+            height: 150px;
+            background-color: #ff99cc;
+            margin: 0 auto;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .gift-box:before {
+            content: '🎁';
+            font-size: 70px;
+            position: absolute;
+            top: 35%;
+            left: 25%;
+            z-index: 0; /* Keeps the emoji behind the message */
+        }
+
+        .choclates {
+            position: fixed;
+            top: 1;
+            font-size: 30px;
+            animation: float 5s infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-100vh); opacity: 0; }
+        }
+
+        /* Hide images initially */
+        #panther, #usTogether {
+            display: none;
+            margin-top: 30px;
+            max-width: 200px;
+            height: auto;
+        }
+        .image-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-top:20px;
+        }
+
+        /* Opaque Pink Overlay */
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 182, 193, 0.9); /* Pink color with opacity */
+    display: none; /* Initially hidden */
+    justify-content: center;
+    align-items: center;
+    z-index: 100; /* Bring it to the top */
+}
+
+.overlay-content {
+    font-size: 2em;
+    color: black; /* Text color */
+    text-align: center;
+    font-weight: bold;
+    padding: 20px;
+    max-width: 80%;
+    border-radius: 20px;
+    background: rgb(228, 108, 216); /* Optional: Highlight the text background for better readability */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Optional shadow for the message box */
+}
+
+    </style>
+</head>
+<body>
+
+    <h1>For My Kannan 💘</h1>
+    <div class="heart" onclick="showGift()">❤</div>
+    <div class="message" id="surpriseMessage">I love you Rohitheeee! 💖</div>
+    
+    <div class="gift-box hidden" id="giftBox" onclick="revealGiftMessage()">
+        <div class="gift-message hidden" id="giftMessage">You're my favorite person! 💝 i love you from my whole heart i want to be with you in every situation no matter its toughest phase or the great phase i really really love youu!!!😘❤️</div>
+    </div>
+    <button class="button hidden" id="showMessageButton" onclick="revealGiftMessage()">Open Your Gift! 🎁</button>
+    
+    <!-- Opaque Pink Overlay -->
+<div id="overlay" class="hidden">
+    <div class="overlay-content" id="giftMessage">I love you Rohitheeee! 💖<br>  I love you from my whole heart. I want to be with you in every situation, no matter if it's the toughest phase or the greatest phase. I really, really love you!!! 😘❤️
+    </div> 
+</div>
+
+<div class="gift-box hidden" id="giftBox" onclick="revealGiftMessage()"></div>
+<button class="button hidden" id="showMessageButton" onclick="revealGiftMessage()">Open Your Gift! 🎁</button>
+
+
+    <script>
+        // Show the hidden gift box and the button to open it
+        function showGift() {
+            document.getElementById('giftBox').classList.remove('hidden');
+            document.getElementById('showMessageButton').classList.remove('hidden');
+        }
+
+        // Reveal the message after opening the gift
+        function revealGiftMessage() {
+    // Show the overlay and message
+    document.getElementById('overlay').style.display = 'flex'; // Display overlay as a flex container
+
+    // Hide other elements
+    document.getElementById('giftBox').style.display = 'none';
+    document.getElementById('showMessageButton').style.display = 'none';
+
+    // Optionally reveal other elements if needed
+    document.getElementById('panther').style.display = 'block';
+    document.getElementById('usTogether').style.display = 'block';
+
+    document.body.classList.add('revealed');
+    document.getElementById('giftMessage').style.display = 'block';
+
+    // Hide the gift box icon
+    document.getElementById('giftBox').style.backgroundColor = 'transparent';
+    document.getElementById('giftBox').style.boxShadow = 'none';
+    document.getElementById('giftBox').style.border = 'none';
+
+    // Hide the button and reveal other elements
+    document.getElementById('showMessageButton').style.display = 'none';
+    document.getElementById('panther').style.display = 'block';
+    document.getElementById('usTogether').style.display = 'block';
+    document.getElementById('surpriseMessage').style.display = 'block';
+}
+
+        function createChoclates() {
+            let choclate = document.createElement('div');
+            choclate.innerHTML = '🍫';
+            choclate.classList.add('choclates');
+            choclate.style.left = Math.random() * 100 + 'vw';
+            choclate.style.animationDuration = Math.random() * 3 + 2 + 's';
+            document.body.appendChild(choclate);
+            setTimeout(function() {
+                choclate.remove();
+            }, 5000);
+        }
+        setInterval(createChoclates, 500);
+    </script>
+
+</body>
+</html>
